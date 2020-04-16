@@ -4,8 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-using ISULR.Model;
-using ISULR.Model.Records;
+using LibISULR;
+using LibISULR.Records;
 
 namespace ISULR
 {

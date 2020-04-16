@@ -47,22 +47,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\CrcStream.cs" />
-    <Compile Include="Model\ExtraDataFlags.cs" />
-    <Compile Include="Model\Helpers.cs" />
-    <Compile Include="Model\Records\AbstractListRecord.cs" />
-    <Compile Include="Model\Records\AbstractRecord.cs" />
-    <Compile Include="Model\Records\BaseRecord.cs" />
-    <Compile Include="Model\Records\DeleteDirOrFilesRecord.cs" />
-    <Compile Include="Model\Records\DeleteFileRecord.cs" />
-    <Compile Include="Model\Records\DeleteIniEntryRecord.cs" />
-    <Compile Include="Model\Records\DeleteIniSectionRecord.cs" />
-    <Compile Include="Model\Records\RecordFactory.cs" />
-    <Compile Include="Model\Records\RegistryKeyRecord.cs" />
-    <Compile Include="Model\Records\RegistryValueRecord.cs" />
-    <Compile Include="Model\Records\RunRecord.cs" />
-    <Compile Include="Model\RecordType.cs" />
-    <Compile Include="Model\UninstallLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -89,6 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibISULR\LibISULR.csproj">
+      <Project>{c53874ee-4b79-4f1f-9b95-05881affb675}</Project>
+      <Name>LibISULR</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
