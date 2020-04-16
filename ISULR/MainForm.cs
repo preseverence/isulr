@@ -77,7 +77,7 @@ namespace ISULR
         return;
 
       string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-      if (files.Length == 0 || CheckFilename(files[0]))
+      if (files.Length == 0 || !CheckFilename(files[0]))
         return;
 
       e.Effect = DragDropEffects.Move;
@@ -89,7 +89,7 @@ namespace ISULR
         return;
 
       string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-      if (files.Length == 0 || CheckFilename(files[0]))
+      if (files.Length == 0 || !CheckFilename(files[0]))
         return;
 
       filename = files[0];
