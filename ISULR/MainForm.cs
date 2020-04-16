@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 using ISULR.Model;
@@ -60,6 +62,13 @@ namespace ISULR
       chDescription.Width = listView.ClientSize.Width - chType.Width;
     }
 
+    private bool CheckFilename(string path)
+    {
+      string name = Path.GetFileName(path);
+
+      return Regex.IsMatch(name, @"unins\d{3}\.dat");
+    }
+
     private void MainForm_DragEnter(object sender, DragEventArgs e)
     {
       e.Effect = DragDropEffects.None;
@@ -68,7 +77,7 @@ namespace ISULR
         return;
 
       string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-      if (Path.GetFileName(files[0]) != "unins000.dat")
+      if (files.Length == 0 || CheckFilename(files[0]))
         return;
 
       e.Effect = DragDropEffects.Move;
@@ -80,12 +89,33 @@ namespace ISULR
         return;
 
       string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-      if (Path.GetFileName(files[0]) != "unins000.dat")
+      if (files.Length == 0 || CheckFilename(files[0]))
         return;
 
       filename = files[0];
 
       LoadLog();
+    }
+
+    private void openLogToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+        return;
+
+      filename = openFileDialog.FileName;
+      LoadLog();
+    }
+
+    private void exportToTXTToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
+        return;
+
+      StringBuilder sb = new StringBuilder();
+      foreach (BaseRecord record in log.Records)
+        sb.Append(record.Type).Append(";").Append(record.Description).AppendLine();
+
+      File.WriteAllText(saveFileDialog.FileName, sb.ToString());
     }
   }
 }

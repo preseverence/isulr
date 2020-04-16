@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.statusStrip = new System.Windows.Forms.StatusStrip();
       this.slblRecords = new System.Windows.Forms.ToolStripStatusLabel();
       this.slblAppID = new System.Windows.Forms.ToolStripStatusLabel();
@@ -35,6 +36,11 @@
       this.listView = new System.Windows.Forms.ListView();
       this.chType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.chDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+      this.openLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.exportToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+      this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
       this.statusStrip.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -43,7 +49,8 @@
       this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.slblRecords,
             this.slblAppID,
-            this.slblAppName});
+            this.slblAppName,
+            this.toolStripSplitButton1});
       this.statusStrip.Location = new System.Drawing.Point(0, 428);
       this.statusStrip.Name = "statusStrip";
       this.statusStrip.Size = new System.Drawing.Size(800, 22);
@@ -60,7 +67,8 @@
       // slblAppID
       // 
       this.slblAppID.Name = "slblAppID";
-      this.slblAppID.Size = new System.Drawing.Size(42, 17);
+      this.slblAppID.Size = new System.Drawing.Size(559, 17);
+      this.slblAppID.Spring = true;
       this.slblAppID.Text = "ID: n/a";
       // 
       // slblAppName
@@ -96,6 +104,40 @@
       // 
       this.chDescription.Text = "Description";
       // 
+      // toolStripSplitButton1
+      // 
+      this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToTXTToolStripMenuItem,
+            this.openLogToolStripMenuItem});
+      this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+      this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+      this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 20);
+      this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+      // 
+      // openLogToolStripMenuItem
+      // 
+      this.openLogToolStripMenuItem.Name = "openLogToolStripMenuItem";
+      this.openLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.openLogToolStripMenuItem.Text = "Open Log";
+      this.openLogToolStripMenuItem.Click += new System.EventHandler(this.openLogToolStripMenuItem_Click);
+      // 
+      // exportToTXTToolStripMenuItem
+      // 
+      this.exportToTXTToolStripMenuItem.Name = "exportToTXTToolStripMenuItem";
+      this.exportToTXTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.exportToTXTToolStripMenuItem.Text = "Export to TXT";
+      this.exportToTXTToolStripMenuItem.Click += new System.EventHandler(this.exportToTXTToolStripMenuItem_Click);
+      // 
+      // openFileDialog
+      // 
+      this.openFileDialog.Filter = "Inno setup logs|unins*.dat";
+      // 
+      // saveFileDialog
+      // 
+      this.saveFileDialog.Filter = "Text files|*.txt";
+      // 
       // MainForm
       // 
       this.AllowDrop = true;
@@ -104,6 +146,7 @@
       this.ClientSize = new System.Drawing.Size(800, 450);
       this.Controls.Add(this.listView);
       this.Controls.Add(this.statusStrip);
+      this.DoubleBuffered = true;
       this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
       this.Name = "MainForm";
       this.Text = "InnoSetup Logs Reader";
@@ -126,6 +169,11 @@
     private System.Windows.Forms.ToolStripStatusLabel slblAppName;
     private System.Windows.Forms.ColumnHeader chType;
     private System.Windows.Forms.ColumnHeader chDescription;
+    private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+    private System.Windows.Forms.ToolStripMenuItem exportToTXTToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem openLogToolStripMenuItem;
+    private System.Windows.Forms.OpenFileDialog openFileDialog;
+    private System.Windows.Forms.SaveFileDialog saveFileDialog;
   }
 }
 
