@@ -13,12 +13,13 @@ The goal of this project is to port to C# the InnoSetup uninstall logs mechanism
 
 * can only preview the data
 * no CRC and range checking is performed
+* compiled code sections will be skipped
 
 ## Usage
 
-To read the file programmatically use `ISULR.Model.UninstallLog` class.
+To read the file programmatically use `LibISULR.UninstallLog` class from LibISULR.
 
-Primitive WinForms UI for previewing the files is also provided. It has no open dialog (I was being lazy), but can open files from commandline (the first one) or from windows file drag-n-drop.
+Primitive WinForms UI for previewing the files is also provided. It can open logs via open dialog, from commandline (the first one) or from windows file drag-n-drop.
 
 ### Warning
 
