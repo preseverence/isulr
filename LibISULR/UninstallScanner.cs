@@ -51,7 +51,7 @@ namespace LibISULR
               InstalledApp app;
               try
               {
-                app = new InstalledApp(appKey, uninstallLogPath, isMachineWide, isX64);
+                app = new InstalledApp(appKey, uninstallLogPath, isMachineWide, isX64, s);
               }
               catch
               {

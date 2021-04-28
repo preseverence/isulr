@@ -6,14 +6,15 @@ namespace LibISULR
 {
   public class InstalledApp
   {
-    internal InstalledApp(RegistryKey key, string path, bool isMachineWide, bool isX64)
+    internal InstalledApp(RegistryKey key, string path, bool isMachineWide, bool isX64, string keyName)
     {
       UninstallLogPath = path;
       IsMachineWide = isMachineWide;
       IsX64 = isX64;
+      RecordName = keyName;
 
       // display name
-      DisplayName = (key.GetValue("DisplayName") as string) ?? key.Name;
+      DisplayName = (key.GetValue("DisplayName") as string) ?? keyName;
 
       // version
       string s = key.GetValue("DisplayVersion") as string;
@@ -21,10 +22,15 @@ namespace LibISULR
         Version = version;
 
       // raw fields
-      InstallerVersion = key.GetValue("Inno Setup: Setup Version") as string;
-      Publisher = key.GetValue("Publisher") as string;
-      InstallUser = key.GetValue("Inno Setup: User") as string;
-      InstallLanguage = key.GetValue("Inno Setup: Language") as string;
+      InstallerVersion = (key.GetValue("Inno Setup: Setup Version") as string)?.Trim();
+      Publisher = (key.GetValue("Publisher") as string)?.Trim();
+      InstallUser = (key.GetValue("Inno Setup: User") as string)?.Trim();
+      InstallLanguage = (key.GetValue("Inno Setup: Language") as string)?.Trim();
+      
+      // size
+      object o = key.GetValue("EstimatedSize");
+      if (o is int i)
+        Size = (uint)i * 1024; // it's in KB
 
       // install date
       s = key.GetValue("InstallDate") as string;
@@ -45,6 +51,11 @@ namespace LibISULR
       else
         DeselectedTasks = new string[0];
     }
+
+    /// <summary>
+    /// Gets the registry record name of the application.
+    /// </summary>
+    public string RecordName { get; }
 
     /// <summary>
     /// Gets the path to the uninstall log file. File is garanteed to exist.
@@ -80,6 +91,11 @@ namespace LibISULR
     /// Gets the installer language.
     /// </summary>
     public string InstallLanguage { get; }
+
+    /// <summary>
+    /// Gets the estimated size of the installation.
+    /// </summary>
+    public long? Size { get; }
 
     /// <summary>
     /// Gets the array of inno-specific tasks selected during the installation.
