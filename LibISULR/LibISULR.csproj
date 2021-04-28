@@ -52,7 +52,9 @@
     <Compile Include="Records\RegistryValueRecord.cs" />
     <Compile Include="Records\RunRecord.cs" />
     <Compile Include="RecordType.cs" />
+    <Compile Include="InstalledApp.cs" />
     <Compile Include="UninstallLog.cs" />
+    <Compile Include="UninstallScanner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
