@@ -1,25 +1,20 @@
 ﻿using System.Collections.Generic;
 
+using LibISULR.Flags;
+
 namespace LibISULR.Records
 {
-  public class DeleteIniSectionRecord: BaseRecord
+  public class DeleteIniSectionRecord: BaseRecord<IniFlags>
   {
-    private IniFlags flags;
     private string filename;
     private string section;
 
     public DeleteIniSectionRecord(int flags, byte[] data)
+      : base(flags)
     {
-      this.flags = (IniFlags)flags;
-
       List<string> items = Helpers.SplitString(data, true);
       filename = items[0];
       section = items[1];
-    }
-
-    public IniFlags Flags
-    {
-      get { return flags; }
     }
 
     public string Filename

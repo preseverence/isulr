@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+using LibISULR.Flags;
 using LibISULR.Records;
 
 namespace LibISULR
@@ -75,21 +76,30 @@ namespace LibISULR
           byte[] data = new byte[dataSize];
           crcStream.Read(data, 0, (int)dataSize);
 
-          records.Add(RecordFactory.CreateRecord(type, extraData, data));
+          records.AddRange(RecordFactory.CreateRecord(type, extraData, data));
         }
       }
     }
 
+    /// <summary>
+    /// Gets the application ID.
+    /// </summary>
     public string AppId
     {
       get { return appId; }
     }
 
+    /// <summary>
+    /// Gets the application name.
+    /// </summary>
     public string AppName
     {
       get { return appName; }
     }
 
+    /// <summary>
+    /// Gets the application version.
+    /// </summary>
     public int Version
     {
       get { return version; }

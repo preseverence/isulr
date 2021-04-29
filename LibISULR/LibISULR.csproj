@@ -37,10 +37,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrcStream.cs" />
-    <Compile Include="ExtraDataFlags.cs" />
+    <Compile Include="Flags\DeleteDirOrFilesFlags.cs" />
+    <Compile Include="Flags\DeleteFileFlags.cs" />
+    <Compile Include="Flags\UninstallLogFlags.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Flags\IniFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Records\AbstractListRecord.cs" />
     <Compile Include="Records\AbstractRecord.cs" />
     <Compile Include="Records\BaseRecord.cs" />
     <Compile Include="Records\DeleteDirOrFilesRecord.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Records\RunRecord.cs" />
     <Compile Include="RecordType.cs" />
     <Compile Include="InstalledApp.cs" />
+    <Compile Include="Flags\RegFlags.cs" />
+    <Compile Include="Flags\RunFlags.cs" />
     <Compile Include="UninstallLog.cs" />
     <Compile Include="UninstallScanner.cs" />
   </ItemGroup>

@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 
+using LibISULR.Flags;
+
 namespace LibISULR.Records
 {
-  public class RunRecord: BaseRecord
+  public class RunRecord: BaseRecord<RunFlags>
   {
-    private RunFlags flags;
     private string filename;
     private string args;
     private string workingDir;
 
     public RunRecord(int flags, byte[] data)
+      : base(flags)
     {      
-      this.flags = (RunFlags)flags;
-
       List<string> items = Helpers.SplitString(data, true);
       filename = items[0];
       args = items[1];
@@ -27,11 +27,6 @@ namespace LibISULR.Records
     public override string Description
     {
       get { return $"File: \"{filename}\" Args: \"{args}\"; At \"{workingDir}\"; Flags: {flags}"; }
-    }
-
-    public RunFlags Flags
-    {
-      get { return flags; }
     }
 
     public string Filename

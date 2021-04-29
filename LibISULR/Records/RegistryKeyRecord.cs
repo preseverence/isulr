@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using LibISULR.Flags;
+
 using Microsoft.Win32;
 
 namespace LibISULR.Records

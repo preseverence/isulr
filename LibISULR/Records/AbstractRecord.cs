@@ -3,13 +3,13 @@
   class AbstractRecord: BaseRecord
   {
     private RecordType type;
-    private int extraData;
+    private uint extraData;
     private byte[] data;
 
     public AbstractRecord(RecordType type, int extraData, byte[] data)
     {
       this.type = type;
-      this.extraData = extraData;
+      this.extraData = (uint)extraData;
       this.data = data;
     }
 
@@ -18,7 +18,7 @@
       get { return type; }
     }
 
-    public int ExtraData
+    public uint ExtraData
     {
       get { return extraData; }
     }

@@ -1,36 +1,48 @@
-﻿namespace LibISULR.Records
+﻿using System.Collections.Generic;
+
+namespace LibISULR.Records
 {
   static class RecordFactory
   {
-    public static BaseRecord CreateRecord(RecordType type, int extra, byte[] data)
+    public static IEnumerable<BaseRecord> CreateRecord(RecordType type, int extra, byte[] data)
     {
       switch (type)
       {
         case RecordType.Run:
-          return new RunRecord(extra, data);
+          yield return new RunRecord(extra, data);
+          yield break;
 
         case RecordType.DeleteFile:
-          return new DeleteFileRecord(extra, data);
+          foreach (string s in Helpers.SplitString(data, false))
+            yield return new DeleteFileRecord(extra, s);
+          yield break;
 
         case RecordType.DeleteDirOrFiles:
-          return new DeleteDirOrFilesRecord(extra, data);
+          foreach (string s in Helpers.SplitString(data, false))
+            yield return new DeleteDirOrFilesRecord(extra, s);
+          yield break;
 
         case RecordType.IniDeleteEntry:
-          return new DeleteIniEntryRecord(extra, data);
+          yield return new DeleteIniEntryRecord(extra, data);
+          yield break;
 
         case RecordType.IniDeleteSection:
-          return new DeleteIniSectionRecord(extra, data);
+          yield return new DeleteIniSectionRecord(extra, data);
+          yield break;
 
         case RecordType.RegDeleteEntireKey:
         case RecordType.RegDeleteKeyIfEmpty:
-          return new RegistryKeyRecord(type, extra, data);
+          yield return new RegistryKeyRecord(type, extra, data);
+          yield break;
 
         case RecordType.RegClearValue:
         case RecordType.RegDeleteValue:
-          return new RegistryValueRecord(type, extra, data);
+          yield return new RegistryValueRecord(type, extra, data);
+          yield break;
 
         default:
-          return new AbstractRecord(type, extra, data);
+          yield return new AbstractRecord(type, extra, data);
+          yield break;
       }
     }
   }
