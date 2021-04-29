@@ -1,6 +1,6 @@
 ﻿namespace LibISULR.Records
 {
-  class AbstractRecord: BaseRecord
+  public class AbstractRecord: BaseRecord
   {
     private RecordType type;
     private uint extraData;

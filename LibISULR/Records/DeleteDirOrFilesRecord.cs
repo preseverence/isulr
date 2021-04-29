@@ -2,7 +2,7 @@
 
 namespace LibISULR.Records
 {
-  class DeleteDirOrFilesRecord: BaseRecord<DeleteDirOrFilesFlags>
+  public class DeleteDirOrFilesRecord: BaseRecord<DeleteDirOrFilesFlags>
   {
     public DeleteDirOrFilesRecord(int flags, string path)
       : base(flags)

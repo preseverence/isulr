@@ -3,7 +3,7 @@
 namespace LibISULR.Flags
 {
   [Flags]
-  enum DeleteDirOrFilesFlags
+  public enum DeleteDirOrFilesFlags
   {
     Extra = 1,
     IsDir = 2,
