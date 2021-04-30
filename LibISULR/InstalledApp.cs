@@ -52,6 +52,11 @@ namespace LibISULR
         DeselectedTasks = new string[0];
     }
 
+    public InstalledApp(string uninstallLogPath)
+    {
+      UninstallLogPath = uninstallLogPath;
+    }
+
     /// <summary>
     /// Gets the registry record name of the application.
     /// </summary>
