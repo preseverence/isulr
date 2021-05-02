@@ -12,7 +12,11 @@ namespace LibISULR.Records
     public DeleteIniSectionRecord(int flags, byte[] data)
       : base(flags)
     {
-      List<string> items = Helpers.SplitString(data, true);
+      Init(Helpers.SplitString(data, true));
+    }
+
+    protected virtual void Init(List<string> items)
+    {
       filename = items[0];
       section = items[1];
     }
