@@ -13,12 +13,12 @@ namespace LibISULR.Records
           yield break;
 
         case RecordType.DeleteFile:
-          foreach (string s in Helpers.SplitString(data, false))
+          foreach (string s in new Helpers.StringSpliiter(data).EnumerateStrings())
             yield return new DeleteFileRecord(extra, s);
           yield break;
 
         case RecordType.DeleteDirOrFiles:
-          foreach (string s in Helpers.SplitString(data, false))
+          foreach (string s in new Helpers.StringSpliiter(data).EnumerateStrings())
             yield return new DeleteDirOrFilesRecord(extra, s);
           yield break;
 
@@ -38,6 +38,14 @@ namespace LibISULR.Records
         case RecordType.RegClearValue:
         case RecordType.RegDeleteValue:
           yield return new RegistryValueRecord(type, extra, data);
+          yield break;
+
+        case RecordType.StartInstall:
+          yield return new StartInstallRecord(data);
+          yield break;
+
+        case RecordType.EndInstall:
+          yield return new EndInstallRecord(data);
           yield break;
 
         default:

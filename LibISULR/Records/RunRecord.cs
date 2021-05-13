@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using LibISULR.Flags;
+﻿using LibISULR.Flags;
 
 namespace LibISULR.Records
 {
@@ -12,11 +10,11 @@ namespace LibISULR.Records
 
     public RunRecord(int flags, byte[] data)
       : base(flags)
-    {      
-      List<string> items = Helpers.SplitString(data, true);
-      filename = items[0];
-      args = items[1];
-      workingDir = items[2];
+    {
+      Helpers.StringSpliiter spliiter = new Helpers.StringSpliiter(data);
+      filename = spliiter.ReadString();
+      args = spliiter.ReadString();
+      workingDir = spliiter.ReadString();
     }
 
     public override RecordType Type

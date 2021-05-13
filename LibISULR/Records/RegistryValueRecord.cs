@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace LibISULR.Records
+﻿namespace LibISULR.Records
 {
   public class RegistryValueRecord: RegistryKeyRecord
   {
     private string value;
 
-    public RegistryValueRecord(RecordType type, int flags, byte[] data): base(type, flags, data) { }
+    public RegistryValueRecord(RecordType type, int flags, byte[] data)
+      : base(type, flags, data) { }
 
-    protected override void ParseData(List<string> items)
+    protected override void Init(ref Helpers.StringSpliiter splitter)
     {
-      base.ParseData(items);
-      value = items[1];
+      base.Init(ref splitter);
+      value = splitter.ReadString();
     }
 
     public override string Description

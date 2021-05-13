@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using LibISULR.Flags;
+﻿using LibISULR.Flags;
 
 using Microsoft.Win32;
 
@@ -17,11 +15,17 @@ namespace LibISULR.Records
     {
       this.type = type;
 
-      ParseData(Helpers.SplitString(data, true));
+      Helpers.StringSpliiter spliiter = new Helpers.StringSpliiter(data);
+      Init(ref spliiter);
 
       RegFlags f = (RegFlags)flags;
       view = (f & RegFlags.Reg_64BitKey) != 0 ? RegistryView.Registry64 : RegistryView.Registry32;
       hive = (RegistryHive)(f & RegFlags.Reg_KeyHandleMask);
+    }
+
+    protected virtual void Init(ref Helpers.StringSpliiter splitter)
+    {
+      path = splitter.ReadString();
     }
 
     public string Path
@@ -37,11 +41,6 @@ namespace LibISULR.Records
     public RegistryView View
     {
       get { return view; }
-    }
-
-    protected virtual void ParseData(List<string> items)
-    {
-      path = items[0];
     }
 
     public override RecordType Type

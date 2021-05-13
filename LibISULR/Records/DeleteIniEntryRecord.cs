@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LibISULR.Records
+﻿namespace LibISULR.Records
 {
   public class DeleteIniEntryRecord: DeleteIniSectionRecord
   {
@@ -12,10 +10,10 @@ namespace LibISULR.Records
      
     }
 
-    protected override void Init(List<string> items)
+    protected override void Init(ref Helpers.StringSpliiter splitter)
     {
-      base.Init(items);
-      entry = items[2];
+      base.Init(ref splitter);
+      entry = splitter.ReadString();
     }
 
     public string Entry

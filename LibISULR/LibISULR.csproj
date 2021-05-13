@@ -49,10 +49,12 @@
     <Compile Include="Records\DeleteFileRecord.cs" />
     <Compile Include="Records\DeleteIniEntryRecord.cs" />
     <Compile Include="Records\DeleteIniSectionRecord.cs" />
+    <Compile Include="Records\EndInstallRecord.cs" />
     <Compile Include="Records\RecordFactory.cs" />
     <Compile Include="Records\RegistryKeyRecord.cs" />
     <Compile Include="Records\RegistryValueRecord.cs" />
     <Compile Include="Records\RunRecord.cs" />
+    <Compile Include="Records\StartInstallRecord.cs" />
     <Compile Include="RecordType.cs" />
     <Compile Include="InstalledApp.cs" />
     <Compile Include="Flags\RegFlags.cs" />

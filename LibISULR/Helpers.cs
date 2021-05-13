@@ -37,59 +37,128 @@ namespace LibISULR
       return BitConverter.ToUInt16(buffer, 0);
     }
 
-    public static List<string> SplitString(byte[] data, bool keepOrder)
+    public static ushort ReadUShort(this byte[] data, ref int index)
     {
-      List<string> result = new List<string>();     
+      ushort result = BitConverter.ToUInt16(data, index);
+      index += 2;
+      return result;
+    }
 
-      int i = 0;
+    public static int ReadInt(this byte[] data, ref int index)
+    {
+      int result = BitConverter.ToInt32(data, index);
+      index += 4;
+      return result;
+    }
 
-      while (i < data.Length)
+    public struct StringSpliiter
+    {
+      private readonly byte[] data;
+      private int index;
+
+      public StringSpliiter(byte[] data)
       {
-        int strLen;
+        this.data = data;
+        index = 0;
+      }
 
-        byte b = data[i];
+      private int ReadLength()
+      {
+        byte b = data[index++];
 
         switch (b)
         {
           case 0xFD:
-            i++;
-            strLen = BitConverter.ToInt16(data, i);
-            i += 2;
-            break;
+            return data.ReadUShort(ref index);
 
           case 0xFE:
-            i++;
-            strLen = BitConverter.ToInt32(data, i);
-            i += 4;
-            break;
+            return data.ReadInt(ref index);
 
           case 0xFF:
-            return result;
+            return -1;
 
           default: // 0..0xFC
-            strLen = b;
-            i++;
-            break;
+            return b;
         }
-
-        if (strLen < 0)
-        {
-          // unicode
-          strLen = -strLen;
-          result.Add(Encoding.Unicode.GetString(data, i, strLen));
-        }
-        else if (strLen == 0)
-        {
-          if (keepOrder)
-            result.Add(null);
-        }
-        else
-          result.Add(Encoding.Default.GetString(data, i, strLen));
-
-        i += strLen;
       }
 
-      return result;
+      public string ReadString()
+      {
+        int lenght = ReadLength();
+
+        string result;
+
+        if (lenght < 0)
+        {
+          lenght = -lenght;
+          result = Encoding.Unicode.GetString(data, index, lenght);
+        }
+        else if (lenght == 0)
+          return null;
+        else
+          result = Encoding.Default.GetString(data, index, lenght);
+
+        index += lenght;
+        return result;
+      }
+
+      public DateTime ReadDateTime()
+      {
+        int length = ReadLength();
+        if (length < 0)
+          length = -length;
+
+        DateTime result;
+
+        /*
+        type TSystemTime = record
+          Year: Word;	      // Year part
+          Month: Word;	    // Month part
+          Day: Word;        // Day of month part
+          DayOfWeek: Word;	
+          Hour: Word;	      // Hour of the day
+          Minute: Word;     // Minute of the hour
+          Second: Word;	    // Second of the minute
+          MilliSecond: Word;// Milliseconds in the second
+        end;
+        */
+
+        if (length >= 16)
+        {
+          int i = index;
+
+          ushort year = data.ReadUShort(ref i);
+          ushort month = data.ReadUShort(ref i);
+          ushort day = data.ReadUShort(ref i);
+          i += 2; //ushort dow = data.ReadUShort(ref i);
+          ushort hour = data.ReadUShort(ref i);
+          ushort minute = data.ReadUShort(ref i);
+          ushort second = data.ReadUShort(ref i);
+          ushort ms = data.ReadUShort(ref i);
+
+          result = new DateTime(year, month, day, hour, minute, second, ms, DateTimeKind.Local);
+        }
+        else
+          result = DateTime.MinValue;
+
+        index += length;
+        return result;
+      }
+
+      public bool IsEnd
+      {
+        get { return index < data.Length; }
+      }
+
+      public IEnumerable<string> EnumerateStrings()
+      {
+        while (!IsEnd)
+        {
+          string str = ReadString();
+          if (str != null)
+            yield return str;
+        }
+      }
     }
   }
 }

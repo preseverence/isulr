@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using LibISULR.Flags;
+﻿using LibISULR.Flags;
 
 namespace LibISULR.Records
 {
@@ -12,13 +10,14 @@ namespace LibISULR.Records
     public DeleteIniSectionRecord(int flags, byte[] data)
       : base(flags)
     {
-      Init(Helpers.SplitString(data, true));
+      Helpers.StringSpliiter splitter = new Helpers.StringSpliiter(data);
+      Init(ref splitter);
     }
 
-    protected virtual void Init(List<string> items)
+    protected virtual void Init(ref Helpers.StringSpliiter splitter)
     {
-      filename = items[0];
-      section = items[1];
+      filename = splitter.ReadString();
+      section = splitter.ReadString();
     }
 
     public string Filename
