@@ -62,9 +62,11 @@ namespace LibISULR
         index = 0;
       }
 
-      private int ReadLength()
+      private int ReadLength(out bool eof)
       {
         byte b = data[index++];
+
+        eof = false;
 
         switch (b)
         {
@@ -75,7 +77,8 @@ namespace LibISULR
             return data.ReadInt(ref index);
 
           case 0xFF:
-            return -1;
+            eof = true;
+            return 0;
 
           default: // 0..0xFC
             return b;
@@ -84,7 +87,10 @@ namespace LibISULR
 
       public string ReadString()
       {
-        int lenght = ReadLength();
+        bool eof;
+        int lenght = ReadLength(out eof);
+        if (eof)
+          return null;
 
         string result;
 
@@ -104,7 +110,10 @@ namespace LibISULR
 
       public DateTime ReadDateTime()
       {
-        int length = ReadLength();
+        bool eof;
+        int length = ReadLength(out eof);
+        if (eof)
+          return DateTime.MinValue;
         if (length < 0)
           length = -length;
 
@@ -114,8 +123,8 @@ namespace LibISULR
         type TSystemTime = record
           Year: Word;	      // Year part
           Month: Word;	    // Month part
-          Day: Word;        // Day of month part
           DayOfWeek: Word;	
+          Day: Word;        // Day of month part
           Hour: Word;	      // Hour of the day
           Minute: Word;     // Minute of the hour
           Second: Word;	    // Second of the minute
@@ -129,8 +138,8 @@ namespace LibISULR
 
           ushort year = data.ReadUShort(ref i);
           ushort month = data.ReadUShort(ref i);
-          ushort day = data.ReadUShort(ref i);
           i += 2; //ushort dow = data.ReadUShort(ref i);
+          ushort day = data.ReadUShort(ref i);
           ushort hour = data.ReadUShort(ref i);
           ushort minute = data.ReadUShort(ref i);
           ushort second = data.ReadUShort(ref i);
@@ -145,9 +154,25 @@ namespace LibISULR
         return result;
       }
 
+      public byte[] ReadBytes()
+      {
+        bool eof;
+        int length = ReadLength(out eof);
+        if (eof)
+          return null;
+        if (length < 0)
+          length = -length;
+
+        byte[] result = new byte[length];
+        Array.Copy(data, index, result, 0, length);
+        index += length;
+
+        return result;
+      }
+
       public bool IsEnd
       {
-        get { return index < data.Length; }
+        get { return index >= data.Length; }
       }
 
       public IEnumerable<string> EnumerateStrings()

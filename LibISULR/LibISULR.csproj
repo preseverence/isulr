@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrcStream.cs" />
+    <Compile Include="Flags\DecrementSharedCountFlags.cs" />
     <Compile Include="Flags\DeleteDirOrFilesFlags.cs" />
     <Compile Include="Flags\DeleteFileFlags.cs" />
     <Compile Include="Flags\UninstallLogFlags.cs" />
@@ -45,11 +46,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\AbstractRecord.cs" />
     <Compile Include="Records\BaseRecord.cs" />
+    <Compile Include="Records\CompiledCodeRecord.cs" />
+    <Compile Include="Records\DecrementSharedCountRecord.cs" />
     <Compile Include="Records\DeleteDirOrFilesRecord.cs" />
     <Compile Include="Records\DeleteFileRecord.cs" />
     <Compile Include="Records\DeleteIniEntryRecord.cs" />
     <Compile Include="Records\DeleteIniSectionRecord.cs" />
     <Compile Include="Records\EndInstallRecord.cs" />
+    <Compile Include="Records\MutexCheckRecord.cs" />
     <Compile Include="Records\RecordFactory.cs" />
     <Compile Include="Records\RegistryKeyRecord.cs" />
     <Compile Include="Records\RegistryValueRecord.cs" />

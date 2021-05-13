@@ -2,7 +2,7 @@
 
 namespace LibISULR.Records
 {
-  class EndInstallRecord: BaseRecord
+  public class EndInstallRecord: BaseRecord
   {
     public EndInstallRecord(byte[] data)
     {

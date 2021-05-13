@@ -48,6 +48,18 @@ namespace LibISULR.Records
           yield return new EndInstallRecord(data);
           yield break;
 
+        case RecordType.MutexCheck:
+          yield return new MutexCheckRecord(data);
+          yield break;
+
+        case RecordType.DecrementSharedCount:
+          yield return new DecrementSharedCountRecord(extra, data);
+          yield break;
+
+        case RecordType.CompiledCode:
+          yield return new CompiledCodeRecord(data);
+          yield break;
+
         default:
           yield return new AbstractRecord(type, extra, data);
           yield break;

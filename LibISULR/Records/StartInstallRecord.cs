@@ -2,7 +2,7 @@
 
 namespace LibISULR.Records
 {
-  class StartInstallRecord: BaseRecord
+  public class StartInstallRecord: BaseRecord
   {
     public StartInstallRecord(byte[] data)
     {
