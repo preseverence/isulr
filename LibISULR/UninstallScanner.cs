@@ -31,10 +31,16 @@ namespace LibISULR
       {
         using (RegistryKey appsKey = hiveKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", false))
         {
+          if (appsKey == null)
+            yield break;
+
           foreach (string s in appsKey.GetSubKeyNames())
           {
             using (RegistryKey appKey = appsKey.OpenSubKey(s, false))
             {
+              if (appKey == null)
+                continue;
+
               string uninstallString = appKey.GetValue("UninstallString") as string;
               if (uninstallString == null)
                 continue;
