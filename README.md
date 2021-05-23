@@ -21,6 +21,8 @@ To read the file programmatically use `LibISULR.UninstallLog` class from LibISUL
 
 Primitive WinForms UI for previewing the files is also provided. It can open logs via open dialog, from commandline (the first one) or from windows file drag-n-drop.
 
+This repo contains only the Inno-Setup reader engine. For a complete UI tool please follow [here](https://brokenevent.com/projects/isulr).
+
 ### Warning
 
 Be aware that the logs are opened as-is. To perform the uninstall you should revert the order. Refer to the [IS sourcecode](https://github.com/jrsoftware/issrc) for further details (the order of operations is not straight).
